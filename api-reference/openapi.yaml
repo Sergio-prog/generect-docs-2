@@ -49,6 +49,26 @@ paths:
                 value:
                   email: example@example.com
                   password: '12345678'
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/auth/token/login/"
+
+          payload = {
+              "email": "example@example.com",
+              "password": "12345678"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: '200'
@@ -589,6 +609,31 @@ paths:
                   up_to_the_second_fresh: true
                   get_full_experience: false
                   url: https://www.linkedin.com/company/boris-johnson
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/leads/by_link/"
+
+          payload = {
+              "comments": False,
+              "inexact_company": False,
+              "people_also_viewed": False,
+              "posts": False,
+              "up_to_the_second_fresh": True,
+              "get_full_experience": False,
+              "url": "https://www.linkedin.com/company/boris-johnson"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: '200'
@@ -1495,6 +1540,30 @@ paths:
                         - "Director"
                       - []
                   limit_by: 100
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/leads/by_icp/"
+
+          payload = {
+              "company_link": "https://www.linkedin.com/company/slack-technologies",
+              "locations": ["San Francisco, California, United States", "New York, New York, United States", "London, England, United Kingdom"],
+              "personas": [["Marketing Leaders", ["marketing", "digital marketing", "growth", "demand generation", "brand"], ["Director", "VP", "Head", "Manager"], ["intern", "coordinator", "specialist", "associate"]], ["Sales Executives", ["sales", "business development", "revenue", "enterprise sales", "account management"], ["VP", "Director", "Head", "Manager"], ["representative", "coordinator", "intern", "junior"]], ["Product Managers", ["product", "product management", "product marketing", "product strategy", "product operations"], ["VP", "Director", "Head", "Senior"], ["analyst", "coordinator", "intern", "associate"]]],
+              "limit_by": 50,
+              "exclude_names": ["John Smith", "Sarah Johnson", "Michael Brown", "Emily Davis", "David Wilson", "Jennifer Garcia"],
+              "filter_empty_vars": ["job_started_on", "profile_photo"]
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: 200 / 200 (Leads not found)
@@ -2200,6 +2269,29 @@ paths:
                     - Angela Hogrefe
                   filter_empty_vars:
                     - started_at_position
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/leads/by_icp/get_count/"
+
+          payload = {
+              "company_link": "https://www.linkedin.com/company/fette-compacting-gmbh",
+              "locations": ["Austria", "Switzerland"],
+              "personas": [["Communication", ["Communication", "Kommunikation", "Communication"], [], ["Assistant", "Operations", "Hubspot"]], ["Communications", ["Communications", "Kommunikation", "Communications"], [], ["Assistant", "Operations", "Hubspot"]]],
+              "exclude_names": ["Volker Reinsch", "Nathalie Hoffmann", "Nora Behrens", "Emanuel da Silva Gomes", "Kerstin Schaper", "Angela Hogrefe"],
+              "filter_empty_vars": ["started_at_position"]
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: '200'
@@ -2294,6 +2386,28 @@ paths:
                   people_also_viewed: true
                   people_also_follow: false
                   posts: true
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/companies/by_link/"
+
+          payload = {
+              "url": "https://www.linkedin.com/company/a2-aprende-y-aplica-capacitaciГіn",
+              "people_also_viewed": True,
+              "people_also_follow": False,
+              "posts": True
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: '200'
@@ -2700,6 +2814,35 @@ paths:
                     max: 1
                     min: 0
                   website_blacklist: false
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/companies/by_icp/"
+
+          payload = {
+              "company_types": ["Public Company", "Self Employed", "Self Owned", "Privately Held", "Partnership"],
+              "get_max_companies": True,
+              "headcounts": ["201-500"],
+              "industries": ["Software Development"],
+              "keywords": ["platform", "marketplace"],
+              "limit_by": 3,
+              "locations": ["United States"],
+              "num_of_followers": ["5001+"],
+              "offset_by": 0,
+              "revenues_range": {'max': 1, 'min': 0},
+              "website_blacklist": False
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: 200 / 200 (Companies not found)
@@ -3372,6 +3515,30 @@ paths:
                   revenues_range:
                     max: 5
                     min: 1
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/api/linkedin/companies/by_icp/get_count/"
+
+          payload = {
+              "get_max_companies": True,
+              "headcounts": ["1-10"],
+              "industries": ["Media Production"],
+              "locations": ["Ontario, Canada"],
+              "num_of_followers": ["1-50"],
+              "revenues_range": {'max': 5, 'min': 1}
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: '200'
@@ -3615,6 +3782,29 @@ paths:
                     - Software
                   company_headcount:
                     - 51-200
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/preview/leads/"
+
+          payload = {
+              "job_titles": ["CEO", "Founder"],
+              "seniorities": ["CXO"],
+              "locations": ["San Francisco, CA"],
+              "company_industries": ["Software"],
+              "company_headcount": ["51-200"]
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Masked lead preview results
@@ -3683,6 +3873,26 @@ paths:
                     - CEO
                   locations:
                     - San Francisco, CA
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/preview/leads/count/"
+
+          payload = {
+              "job_titles": ["CEO"],
+              "locations": ["San Francisco, CA"]
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Matching lead count
@@ -3747,6 +3957,25 @@ paths:
               By email:
                 value:
                   email: john@acme.com
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/enrich/database/lead/"
+
+          payload = {
+              "id": "lead_abc123xyz"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Full lead profile. If no data is found, no credits are charged.
@@ -3828,6 +4057,25 @@ paths:
               By email (reverse lookup):
                 value:
                   email: john@acme.com
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/enrich/realtime/lead/"
+
+          payload = {
+              "id": "lead_abc123xyz"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Fresh full lead profile
@@ -3915,6 +4163,25 @@ paths:
               By company name:
                 value:
                   name: Acme Technologies
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/enrich/database/company/"
+
+          payload = {
+              "id": "comp_xyz789"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Full company profile
@@ -3996,6 +4263,25 @@ paths:
               By company name:
                 value:
                   name: Acme Technologies
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/enrich/realtime/company/"
+
+          payload = {
+              "id": "comp_xyz789"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Fresh full company profile
@@ -4062,6 +4348,25 @@ paths:
                   first_name: John
                   last_name: Doe
                   domain: acme.com
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/email/find/"
+
+          payload = {
+              "lead_id": "lead_abc123xyz"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Email result
@@ -4145,6 +4450,25 @@ paths:
                     - first_name: Jane
                       last_name: Smith
                       domain: acme.com
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/email/find/bulk/"
+
+          payload = {
+              "leads": [{'lead_id': 'lead_abc123xyz'}, {'first_name': 'Jane', 'last_name': 'Smith', 'domain': 'acme.com'}]
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '202':
           description: Bulk job accepted
@@ -4564,6 +4888,25 @@ paths:
                       description: Generect lead identifier from Search, Preview, or Enrich.
                       example: lead_abc123xyz
                 - $ref: '#/components/schemas/PhoneFindByNameRequest'
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/phone/find/"
+
+          payload = {
+              "lead_id": "lead_abc123xyz"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Phone finder result
@@ -4667,6 +5010,27 @@ paths:
                 secret:
                   type: string
                   example: your-secret-for-signature
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/webhooks/"
+
+          payload = {
+              "url": "https://your-app.com/webhook",
+              "events": ["email.find.bulk.completed"],
+              "secret": "your-secret-for-signature"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '201':
           description: Webhook registered
@@ -4706,6 +5070,25 @@ paths:
                 id:
                   type: string
                   example: wh_123
+      x-codeSamples:
+      - lang: python
+        label: Python
+        source: |
+          import requests
+
+          url = "https://api.generect.com/api/v1/webhooks/test/"
+
+          payload = {
+              "id": "wh_123"
+          }
+
+          headers = {
+              "Authorization": "Token <api-key>",
+              "Content-Type": "application/json"
+          }
+
+          response = requests.post(url, json=payload, headers=headers)
+          print(response.json())
       responses:
         '200':
           description: Test webhook delivery result
