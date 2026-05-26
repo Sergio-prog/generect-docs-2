@@ -142,10 +142,10 @@ When adding an MCP node in Agent Builder:
    * `/emails/email_validation/`
 
 Add parameters. You can use variables from previous nodes, like:  
- ```json
- {
-  "industry": {{ user_input.industry }},
-  "location": {{ user_input.location }},
+```json
+{
+  "industry": "{{ user_input.industry }}",
+  "location": "{{ user_input.location }}",
   "limit": 5
 }
 ```
