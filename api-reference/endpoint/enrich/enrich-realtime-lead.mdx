@@ -10,3 +10,30 @@ Retrieve a fresh lead profile, including reverse email lookup, by Generect ID, L
 This is a billable endpoint — you are charged only when a lead is found and returned. If nothing is found, the request is free.
 
 <Tip>Your price decreases automatically as your lifetime spend grows. [Check your current tier and pricing →](https://beta.generect.com/settings/billing)</Tip>
+
+## Example response
+
+The full shape returned on success — every field the endpoint can populate.
+
+```json
+{
+  "data": {
+    "id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9",
+    "first_name": "Jordan",
+    "last_name": "Ellis",
+    "title": "CEO",
+    "linkedin_url": "https://www.linkedin.com/in/jordan-ellis",
+    "company": {
+      "id": 1035,
+      "name": "Microsoft",
+      "domain": "microsoft.com"
+    },
+    "work_history": [],
+    "education": [],
+    "skills": []
+  },
+  "meta": {
+    "amount_charged": 0.04
+  }
+}
+```

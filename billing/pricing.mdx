@@ -16,15 +16,18 @@ These are the **starting** per-result prices (before any volume discount — see
 | Database (cached) search & enrich | `POST /search/database/*`, `POST /enrich/database/*` | **$0.0067** | per returned result |
 | Email Finder | `POST /email/find/` (+ `/bulk/`) | **$0.02** | per **valid** email found |
 | Email Validation | `POST /email/validate/` | **$0.005** | per email checked |
-| Preview | `POST /preview/leads/` | **$0.002** | per returned result |
+| Preview | `POST /preview/leads/` | **Free** | masked results, no charge |
 | Phone Finder | `POST /phone/find/` (+ `/bulk/`) | **$0.40** | per **found** phone |
 
-<Info>Prices above are the Tier 0 (standard) rate. The more you spend over the lifetime of your account, the higher your discount tier and the lower every price becomes — automatically. See [Spend & Save tiers](/billing/managing-billing).</Info>
+<Info>Prices above are the Tier 0 (standard) rate. The more you spend over the lifetime of your account, the higher your discount tier and the lower most prices become — automatically. See [Spend & Save tiers](/billing/managing-billing).</Info>
+
+<Note>**Email Validation is excluded from volume discounts** — it stays at $0.005 per email on every tier. Everything else in the table above scales down with your tier.</Note>
 
 ## How a charge is calculated
 
 ```
 amount charged (USD) = billable results × operation price × your tier multiplier
+# (tier multiplier is 1.0 for Email Validation — see the note above)
 ```
 
 Every API response reports exactly what it cost in `meta.amount_charged` (USD), so you never have to guess after the fact.
@@ -39,6 +42,7 @@ Every API response reports exactly what it cost in `meta.amount_charged` (USD), 
 ## What's free
 
 - **Database (cached) count** endpoints (`POST /search/database/*/count/`) — a cached count, no charge.
+- **Preview** endpoints (`POST /preview/leads/`, `/preview/leads/count/`) — masked results, no charge.
 - **Account, status, and webhook** endpoints.
 - **Not-found results** on enrich, phone, and email find (see below).
 
@@ -83,7 +87,7 @@ Enable [Auto Top-Up](/billing/managing-billing) to make this state unreachable i
 There is no separate sandbox environment — the live API is safe to evaluate for free:
 
 - **Database count** endpoints are free — size any audience at $0.
-- **Preview** returns real (masked) leads at $0.002/result.
+- **Preview** returns real (masked) leads — free.
 - New accounts start with a **free starter credit**, and not-found results are never billed — a failed experiment costs nothing.
 - Every response tells you what it actually cost (`meta.amount_charged`), so a $1 test budget goes a long way.
 

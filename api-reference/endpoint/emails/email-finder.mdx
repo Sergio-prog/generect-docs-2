@@ -14,3 +14,21 @@ Reveal a work email for a lead from Preview, or find a verified email from a nam
 This is a billable endpoint — you are charged only for each valid email found. If no email is found, the request is free.
 
 <Tip>Your price decreases automatically as your lifetime spend grows. [Check your current tier and pricing →](https://beta.generect.com/settings/billing)</Tip>
+
+## Example response
+
+The full shape returned on success — every field the endpoint can populate.
+
+```json
+{
+  "data": {
+    "valid_email": "jordan.ellis@microsoft.com",
+    "result": "valid",
+    "catch_all": false,
+    "source": "generect"
+  },
+  "meta": {
+    "amount_charged": 0.02
+  }
+}
+```

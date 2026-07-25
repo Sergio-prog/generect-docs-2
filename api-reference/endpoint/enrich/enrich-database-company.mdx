@@ -10,3 +10,23 @@ Retrieve a company profile from cached data by Generect ID, LinkedIn URL, domain
 This is a billable endpoint — you are charged only when a company is found and returned. If nothing is found, the request is free.
 
 <Tip>Your price decreases automatically as your lifetime spend grows. [Check your current tier and pricing →](https://beta.generect.com/settings/billing)</Tip>
+
+## Example response
+
+The full shape returned on success — every field the endpoint can populate.
+
+```json
+{
+  "data": {
+    "id": 1035,
+    "name": "Microsoft",
+    "domain": "microsoft.com",
+    "linkedin_url": "https://www.linkedin.com/company/microsoft/",
+    "industry": "Software Development",
+    "headcount": 150
+  },
+  "meta": {
+    "amount_charged": 0.02
+  }
+}
+```
