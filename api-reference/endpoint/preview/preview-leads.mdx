@@ -7,4 +7,4 @@ openapi: post /preview/leads/
 Show masked lead results in SaaS products without exposing paid data such as email, phone, LinkedIn URL, or company domain.
 
 ## Pricing
-This endpoint is free — it does not incur any charges.
+This endpoint is billed at **$0.002 per returned result** and becomes **free once your account passes $2,000 total spend** (check the `preview_tier` flag on [`GET /accounts/me/`](/api-reference/endpoint/accounts/get-account-me)). Sizing the audience with `POST /preview/leads/count/` is always free. See [Pricing](/billing/pricing).
