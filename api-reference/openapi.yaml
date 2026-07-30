@@ -3619,6 +3619,12 @@ paths:
                         type: array
                     limit_by:
                       type: integer
+                      description: >-
+                        Rows per page, and therefore the maximum billable rows
+                        for the request. Capped by the account's Preview page
+                        ceiling (20 by default) — a larger value is clamped, not
+                        rejected. Values above 2400 are rejected with 400.
+                      default: 20
                     offset_by:
                       type: integer
             examples:
@@ -3639,7 +3645,7 @@ paths:
                       - c_suite
                     locations:
                       - United States
-                    limit_by: 25
+                    limit_by: 20
       responses:
         '400':
           description: Validation error.
@@ -3648,24 +3654,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               examples:
-                Validation error:
+                Unknown filter value:
                   value:
                     status: error
                     status_code: 400
                     detail: {"company_headcounts": ["Object with name=999 does not exist."]}
+                Page size out of range:
+                  value:
+                    status: error
+                    status_code: 400
+                    detail: {"limit_by": ["Limit by parameter should be >0 and <= 2400"]}
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/InsufficientFunds'
         '403':
-          description: Account is not enabled for the Preview endpoint.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-              example:
-                error: You are not authorized to use this endpoint.
+          $ref: '#/components/responses/PreviewForbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '200':
           description: Masked lead preview results
           content:
@@ -3694,13 +3700,17 @@ paths:
                       seniority: VP
                       headcount_range: 201-500
                 meta:
-                  amount_charged: 0
+                  amount_charged: 0.004
   /preview/leads/count/:
     post:
       tags:
         - 5. Preview
       summary: Count preview leads
-      description: Count matching database leads for Preview. Count requests are always free.
+      description: >-
+        Count matching database leads for Preview. Counts the same set
+        `POST /preview/leads/` pages through — leads not refreshed in the
+        last 365 days are excluded from both — so the number is a reliable
+        basis for budgeting pages. Count requests are always free.
       requestBody:
         required: true
         content:
@@ -3769,24 +3779,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               examples:
-                Validation error:
+                Unknown filter value:
                   value:
                     status: error
                     status_code: 400
                     detail: {"company_headcounts": ["Object with name=999 does not exist."]}
+                No search criteria:
+                  value:
+                    status: error
+                    status_code: 400
+                    detail:
+                      company_search_criteria: ["company_search_criteria or lead_search_criteria must be specified"]
+                      lead_search_criteria: ["company_search_criteria or lead_search_criteria must be specified"]
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
-          description: Account is not enabled for the Preview endpoint.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-              example:
-                error: You are not authorized to use this endpoint.
+          $ref: '#/components/responses/PreviewForbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '200':
           description: Matching lead count
           content:
@@ -6931,6 +6941,16 @@ components:
             status: error
             status_code: 403
             detail: You do not have permission to perform this action.
+    PreviewForbidden:
+      description: Account is not enabled for the Preview endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: error
+            status_code: 403
+            detail: You are not authorized to use this endpoint.
     NotFound:
       description: Resource or job not found (or not owned by the caller).
       content:
@@ -6941,6 +6961,16 @@ components:
             status: error
             status_code: 404
             detail: Not found.
+    InsufficientFunds:
+      description: Balance too low for this operation. Top up and retry.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: error
+            status_code: 402
+            detail: Insufficient funds in the account.
     TooManyRequests:
       description: Rate limit exceeded — retry later.
       content:

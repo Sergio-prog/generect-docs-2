@@ -10,36 +10,3 @@ Retrieve a full lead profile from cached data by Generect ID, LinkedIn URL, or e
 This is a billable endpoint — you are charged only when a lead is found and returned. If nothing is found, the request is free.
 
 <Tip>Your price decreases automatically as your lifetime spend grows. [Check your current tier and pricing →](https://beta.generect.com/settings/billing)</Tip>
-
-## Example response
-
-The full shape returned on success — every field the endpoint can populate.
-
-```json
-{
-  "data": {
-    "id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9",
-    "first_name": "Jordan",
-    "last_name": "Ellis",
-    "title": "CEO",
-    "headline": "CEO at Microsoft",
-    "linkedin_url": "https://www.linkedin.com/in/jordan-ellis",
-    "location": "San Francisco, CA",
-    "seniority": "CXO",
-    "company": {
-      "id": 1035,
-      "name": "Microsoft",
-      "domain": "microsoft.com",
-      "linkedin_url": "https://www.linkedin.com/company/microsoft/",
-      "industry": "Software Development",
-      "headcount": 150
-    },
-    "work_history": [],
-    "education": [],
-    "skills": []
-  },
-  "meta": {
-    "amount_charged": 0.02
-  }
-}
-```

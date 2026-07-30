@@ -10,26 +10,3 @@ Search fresh lead data with full realtime filters.
 This is a billable endpoint — you are charged for each result returned. If no results are found, the request is free.
 
 <Tip>Your price decreases automatically as your lifetime spend grows. [Check your current tier and pricing →](https://beta.generect.com/settings/billing)</Tip>
-
-## Example response
-
-The full shape returned on success — every field the endpoint can populate.
-
-```json
-{
-  "data": {
-    "leads": [
-      {
-        "lead_id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9",
-        "first_name": "Jordan",
-        "last_name": "Ellis",
-        "title": "CEO"
-      }
-    ],
-    "results_count": 1240
-  },
-  "meta": {
-    "amount_charged": 49.6
-  }
-}
-```
