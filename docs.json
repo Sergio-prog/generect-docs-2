@@ -1,7 +1,16 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Starter Kit",
+  "name": "Generect",
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "download-spec"
+    ]
+  },
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -13,22 +22,21 @@
       "name": "Authorization"
     }
   },
-  "openapi": "api-reference/openapi.yaml",
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#2d59c8",
     "light": "#5b85e6",
-    "dark": "#2d59c8",
-    "anchors": {
-      "from": "#2d59c8",
-      "to": "#5b85e6"
-    }
+    "dark": "#2d59c8"
   },
   "background": {
     "style": "gradient"
   },
   "navbar": {
     "links": [
+      {
+        "label": "Status",
+        "href": "https://status.generect.com"
+      },
       {
         "label": "Support",
         "href": "mailto:support@generect.com"
@@ -43,7 +51,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Introduction",
         "groups": [
           {
             "group": "Getting Started",
@@ -57,6 +65,7 @@
               "docs/choose-the-right-workflow",
               "docs/data-coverage",
               "docs/cached-databases",
+              "docs/security-compliance",
               "docs/faq"
             ]
           },
@@ -76,29 +85,48 @@
         "tab": "API Reference",
         "groups": [
           {
+            "group": "API Reference",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/quickstart",
+              "api-reference/database-vs-realtime",
+              "api-reference/limits",
+              "api-reference/reliability",
+              "api-reference/errors",
+              "api-reference/migration-guide"
+            ]
+          },
+          {
+            "group": "Auth",
+            "pages": [
+              "api-reference/authentication"
+            ]
+          },
+          {
             "group": "Enrich",
             "pages": [
               {
                 "group": "Companies",
+                "icon": "building",
                 "pages": [
                   "api-reference/endpoint/enrich/enrich-realtime-company",
-                  "api-reference/endpoint/enrich/enrich-database-company"
+                  "api-reference/endpoint/enrich/enrich-database-company",
+                  "api-reference/endpoint/enrich/enrich-realtime-companies-bulk",
+                  "api-reference/endpoint/enrich/enrich-database-companies-bulk",
+                  "api-reference/endpoint/enrich/get-companies-bulk"
                 ]
               },
               {
                 "group": "Leads",
+                "icon": "user",
                 "pages": [
                   "api-reference/endpoint/enrich/enrich-realtime-lead",
-                  "api-reference/endpoint/enrich/enrich-database-lead"
+                  "api-reference/endpoint/enrich/enrich-database-lead",
+                  "api-reference/endpoint/enrich/enrich-realtime-leads-bulk",
+                  "api-reference/endpoint/enrich/enrich-database-leads-bulk",
+                  "api-reference/endpoint/enrich/get-leads-bulk"
                 ]
               }
-            ]
-          },
-          {
-            "group": "Preview",
-            "pages": [
-              "api-reference/endpoint/preview/preview-leads",
-              "api-reference/endpoint/preview/count-preview-leads"
             ]
           },
           {
@@ -106,59 +134,70 @@
             "pages": [
               {
                 "group": "Companies",
+                "icon": "building",
                 "pages": [
                   "api-reference/endpoint/search/realtime-companies",
                   "api-reference/endpoint/search/database-companies",
-                  {
-                    "group": "Count",
-                    "pages": [
-                      "api-reference/endpoint/search/count-realtime-companies",
-                      "api-reference/endpoint/search/count-database-companies"
-                    ]
-                  }
+                  "api-reference/endpoint/search/count-realtime-companies",
+                  "api-reference/endpoint/search/count-database-companies"
                 ]
               },
               {
                 "group": "Leads",
+                "icon": "user",
                 "pages": [
                   "api-reference/endpoint/search/realtime-leads",
                   "api-reference/endpoint/search/database-leads",
+                  "api-reference/endpoint/search/count-realtime-leads",
+                  "api-reference/endpoint/search/count-database-leads",
                   {
-                    "group": "Count",
+                    "group": "Preview",
+                    "icon": "eye",
                     "pages": [
-                      "api-reference/endpoint/search/count-realtime-leads",
-                      "api-reference/endpoint/search/count-database-leads"
+                      "api-reference/endpoint/preview/preview-leads",
+                      "api-reference/endpoint/preview/count-preview-leads"
                     ]
                   }
                 ]
               },
               {
                 "group": "Company-Leads",
+                "icon": "building-user",
                 "pages": [
                   "api-reference/endpoint/search/realtime-company-leads",
                   "api-reference/endpoint/search/database-company-leads",
-                  {
-                    "group": "Count",
-                    "pages": [
-                      "api-reference/endpoint/search/count-realtime-company-leads",
-                      "api-reference/endpoint/search/count-database-company-leads"
-                    ]
-                  }
+                  "api-reference/endpoint/search/count-database-company-leads"
                 ]
               }
             ]
           },
           {
-            "group": "Email",
+            "group": "Contacts",
             "pages": [
-              "api-reference/endpoint/emails/email-finder",
-              "api-reference/endpoint/emails/email-finder-bulk",
-              "api-reference/endpoint/emails/get-email-finder-bulk",
-              "api-reference/endpoint/emails/email-validation"
+              {
+                "group": "Email",
+                "icon": "envelope",
+                "pages": [
+                  "api-reference/endpoint/emails/email-finder",
+                  "api-reference/endpoint/emails/email-finder-bulk",
+                  "api-reference/endpoint/emails/get-email-finder-bulk",
+                  "api-reference/endpoint/emails/email-validation"
+                ]
+              },
+              {
+                "group": "Phone",
+                "icon": "phone",
+                "pages": [
+                  "api-reference/endpoint/phone/phone-finder",
+                  "api-reference/endpoint/phone/phone-finder-bulk",
+                  "api-reference/endpoint/phone/get-phone-finder-bulk"
+                ]
+              }
             ]
           },
           {
             "group": "Account",
+            "icon": "user-gear",
             "pages": [
               "api-reference/endpoint/accounts/get-account-me",
               "api-reference/endpoint/accounts/get-account-usage",
@@ -166,18 +205,14 @@
             ]
           },
           {
-            "group": "Phone",
-            "pages": [
-              "api-reference/endpoint/phone/phone-finder",
-              "api-reference/endpoint/phone/phone-finder-bulk",
-              "api-reference/endpoint/phone/get-phone-finder-bulk"
-            ]
-          },
-          {
             "group": "Webhooks",
+            "icon": "bell",
             "pages": [
+              "api-reference/endpoint/webhooks/overview",
               "api-reference/endpoint/webhooks/list-webhooks",
               "api-reference/endpoint/webhooks/create-webhook",
+              "api-reference/endpoint/webhooks/get-webhook",
+              "api-reference/endpoint/webhooks/update-webhook",
               "api-reference/endpoint/webhooks/delete-webhook",
               "api-reference/endpoint/webhooks/test-webhook"
             ]
@@ -191,6 +226,7 @@
             "group": "Billing & Pricing",
             "pages": [
               "billing/pay-as-you-go",
+              "billing/pricing",
               "billing/managing-billing",
               "billing/usage-history",
               "billing/faq"
@@ -256,5 +292,11 @@
   },
   "footer": {
     "socials": {}
+  },
+  "integrations": {
+    "posthog": {
+      "apiKey": "phc_oZ9t9NRDaaMw82GikzAbFGwstRHRyY45U8g5T8sfi6rv",
+      "apiHost": "https://eu.i.posthog.com"
+    }
   }
 }

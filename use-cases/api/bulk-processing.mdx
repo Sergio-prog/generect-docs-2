@@ -2,6 +2,20 @@
 title: Bulk processing
 ---
 
+## How bulk jobs behave
+
+All bulk endpoints (enrich, email find, phone find) share the same async contract:
+
+1. **Submit** up to **50 items** per request. The response is `202 Accepted` with a `job_id` (a 51st item is rejected with `400`).
+2. **Track** the job by polling `GET .../{job_id}/`, or [register a webhook](/api-reference/endpoint/webhooks/overview) to receive the results when it finishes.
+3. `meta.status` moves through `pending` → `processing` → `completed` (or `error` on failure). **`data` stays `null` until `status` is `completed`** — poll on the status, not the body.
+4. **Results are 1:1 with your input, in the same order.** An item we couldn't resolve is **returned with its profile set to `null`** (never dropped), so you can line results back up to inputs by position.
+5. **Not-found items are not charged.** Credits are reserved for the whole batch on submit and the unfound ones are refunded — you pay only for results returned. The webhook payload's `meta` also reports `found` and `not_found` counts.
+
+<Note>Jobs are retained for **24 hours**; after that the status endpoint returns `404`.</Note>
+
+---
+
 ### 1\. Bulk lead search by ICP from cached database (Search API \- Database)
 
 **Who it's for**
@@ -51,8 +65,8 @@ Finding emails one by one for 10K+ leads is too slow. Teams need async bulk proc
 
 1. Submit list of `lead_id` values or name+domain pairs to `POST /email/find/bulk/`
 2. Get `job_id`
-3. Poll `GET /email/find/bulk/{job_id}/` for status
-4. Download results when complete
+3. Either poll `GET /email/find/bulk/{job_id}/` for status, **or** [register a webhook](/api-reference/endpoint/webhooks/overview) once and we'll `POST` the full results to your callback URL when the job finishes — no polling
+4. Use the results when complete
 
 **Input data**
 
@@ -111,7 +125,7 @@ Finding phones one by one doesn't scale. Need async bulk processing for large li
 
 1. Submit lead list to `POST /phone/find/bulk/`
 2. Get `job_id`
-3. Poll for results via `GET /phone/find/bulk/{job_id}/`
+3. Either poll `GET /phone/find/bulk/{job_id}/`, **or** [register a webhook](/api-reference/endpoint/webhooks/overview) once and we'll `POST` the full results to your callback URL when the job finishes — no polling
 4. Pay only per found phone
 
 **Input data**
