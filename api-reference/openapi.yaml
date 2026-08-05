@@ -49,6 +49,26 @@ paths:
                 value:
                   email: example@example.com
                   password: '12345678'
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/auth/token/login/"
+
+            payload = {
+                "email": "example@example.com",
+                "password": "12345678"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: '200'
@@ -589,6 +609,31 @@ paths:
                   up_to_the_second_fresh: true
                   get_full_experience: false
                   url: https://www.linkedin.com/company/boris-johnson
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/leads/by_link/"
+
+            payload = {
+                "comments": False,
+                "inexact_company": False,
+                "people_also_viewed": False,
+                "posts": False,
+                "up_to_the_second_fresh": True,
+                "get_full_experience": False,
+                "url": "https://www.linkedin.com/company/boris-johnson"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: '200'
@@ -1495,6 +1540,111 @@ paths:
                         - "Director"
                       - []
                   limit_by: 100
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/leads/by_icp/"
+
+            payload = {
+                "company_link": "https://www.linkedin.com/company/slack-technologies",
+                "locations": [
+                    "San Francisco, California, United States",
+                    "New York, New York, United States",
+                    "London, England, United Kingdom"
+                ],
+                "personas": [
+                    [
+                        "Marketing Leaders",
+                        [
+                            "marketing",
+                            "digital marketing",
+                            "growth",
+                            "demand generation",
+                            "brand"
+                        ],
+                        [
+                            "Director",
+                            "VP",
+                            "Head",
+                            "Manager"
+                        ],
+                        [
+                            "intern",
+                            "coordinator",
+                            "specialist",
+                            "associate"
+                        ]
+                    ],
+                    [
+                        "Sales Executives",
+                        [
+                            "sales",
+                            "business development",
+                            "revenue",
+                            "enterprise sales",
+                            "account management"
+                        ],
+                        [
+                            "VP",
+                            "Director",
+                            "Head",
+                            "Manager"
+                        ],
+                        [
+                            "representative",
+                            "coordinator",
+                            "intern",
+                            "junior"
+                        ]
+                    ],
+                    [
+                        "Product Managers",
+                        [
+                            "product",
+                            "product management",
+                            "product marketing",
+                            "product strategy",
+                            "product operations"
+                        ],
+                        [
+                            "VP",
+                            "Director",
+                            "Head",
+                            "Senior"
+                        ],
+                        [
+                            "analyst",
+                            "coordinator",
+                            "intern",
+                            "associate"
+                        ]
+                    ]
+                ],
+                "limit_by": 50,
+                "exclude_names": [
+                    "John Smith",
+                    "Sarah Johnson",
+                    "Michael Brown",
+                    "Emily Davis",
+                    "David Wilson",
+                    "Jennifer Garcia"
+                ],
+                "filter_empty_vars": [
+                    "job_started_on",
+                    "profile_photo"
+                ]
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: 200 / 200 (Leads not found)
@@ -2200,6 +2350,70 @@ paths:
                     - Angela Hogrefe
                   filter_empty_vars:
                     - started_at_position
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/leads/by_icp/get_count/"
+
+            payload = {
+                "company_link": "https://www.linkedin.com/company/fette-compacting-gmbh",
+                "locations": [
+                    "Austria",
+                    "Switzerland"
+                ],
+                "personas": [
+                    [
+                        "Communication",
+                        [
+                            "Communication",
+                            "Kommunikation",
+                            "Communication"
+                        ],
+                        [],
+                        [
+                            "Assistant",
+                            "Operations",
+                            "Hubspot"
+                        ]
+                    ],
+                    [
+                        "Communications",
+                        [
+                            "Communications",
+                            "Kommunikation",
+                            "Communications"
+                        ],
+                        [],
+                        [
+                            "Assistant",
+                            "Operations",
+                            "Hubspot"
+                        ]
+                    ]
+                ],
+                "exclude_names": [
+                    "Volker Reinsch",
+                    "Nathalie Hoffmann",
+                    "Nora Behrens",
+                    "Emanuel da Silva Gomes",
+                    "Kerstin Schaper",
+                    "Angela Hogrefe"
+                ],
+                "filter_empty_vars": [
+                    "started_at_position"
+                ]
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: '200'
@@ -2294,6 +2508,28 @@ paths:
                   people_also_viewed: true
                   people_also_follow: false
                   posts: true
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/companies/by_link/"
+
+            payload = {
+                "url": "https://www.linkedin.com/company/a2-aprende-y-aplica-capacitaciГіn",
+                "people_also_viewed": True,
+                "people_also_follow": False,
+                "posts": True
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: '200'
@@ -2700,6 +2936,55 @@ paths:
                     max: 1
                     min: 0
                   website_blacklist: false
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/companies/by_icp/"
+
+            payload = {
+                "company_types": [
+                    "Public Company",
+                    "Self Employed",
+                    "Self Owned",
+                    "Privately Held",
+                    "Partnership"
+                ],
+                "get_max_companies": True,
+                "headcounts": [
+                    "201-500"
+                ],
+                "industries": [
+                    "Software Development"
+                ],
+                "keywords": [
+                    "platform",
+                    "marketplace"
+                ],
+                "limit_by": 3,
+                "locations": [
+                    "United States"
+                ],
+                "num_of_followers": [
+                    "5001+"
+                ],
+                "offset_by": 0,
+                "revenues_range": {
+                    "max": 1,
+                    "min": 0
+                },
+                "website_blacklist": False
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: 200 / 200 (Companies not found)
@@ -3372,6 +3657,41 @@ paths:
                   revenues_range:
                     max: 5
                     min: 1
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/linkedin/companies/by_icp/get_count/"
+
+            payload = {
+                "get_max_companies": True,
+                "headcounts": [
+                    "1-10"
+                ],
+                "industries": [
+                    "Media Production"
+                ],
+                "locations": [
+                    "Ontario, Canada"
+                ],
+                "num_of_followers": [
+                    "1-50"
+                ],
+                "revenues_range": {
+                    "max": 5,
+                    "min": 1
+                }
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '200':
           description: '200'
@@ -3646,6 +3966,48 @@ paths:
                     locations:
                       - United States
                     limit_by: 20
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/preview/leads/"
+
+            payload = {
+                "company_search_criteria": {
+                    "industries": [
+                        "Software Development"
+                    ],
+                    "headcounts": [
+                        "51-200"
+                    ],
+                    "locations": [
+                        "United States"
+                    ]
+                },
+                "lead_search_criteria": {
+                    "job_titles": [
+                        "CEO",
+                        "Founder"
+                    ],
+                    "seniorities": [
+                        "c_suite"
+                    ],
+                    "locations": [
+                        "United States"
+                    ],
+                    "limit_by": 20
+                }
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error.
@@ -3771,6 +4133,40 @@ paths:
                       - CEO
                     locations:
                       - United States
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/preview/leads/count/"
+
+            payload = {
+                "company_search_criteria": {
+                    "industries": [
+                        "Software Development"
+                    ],
+                    "locations": [
+                        "United States"
+                    ]
+                },
+                "lead_search_criteria": {
+                    "job_titles": [
+                        "CEO"
+                    ],
+                    "locations": [
+                        "United States"
+                    ]
+                }
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error.
@@ -3860,6 +4256,25 @@ paths:
               By email:
                 value:
                   email: jordan.ellis@microsoft.com
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/enrich/database/lead/"
+
+            payload = {
+                "id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -3964,6 +4379,25 @@ paths:
               By email (reverse lookup):
                 value:
                   email: jordan.ellis@microsoft.com
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/enrich/realtime/lead/"
+
+            payload = {
+                "id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -4074,6 +4508,25 @@ paths:
               By company name:
                 value:
                   name: Microsoft
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/enrich/database/company/"
+
+            payload = {
+                "id": 1035
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -4178,6 +4631,25 @@ paths:
               By company name:
                 value:
                   name: Microsoft
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/enrich/realtime/company/"
+
+            payload = {
+                "id": 1035
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -4623,6 +5095,25 @@ paths:
                   first_name: Jordan
                   last_name: Ellis
                   domain: microsoft.com
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/email/find/"
+
+            payload = {
+                "lead_id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -4730,6 +5221,34 @@ paths:
                     - first_name: Morgan
                       last_name: Lee
                       domain: salesforce.com
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/email/find/bulk/"
+
+            payload = {
+                "leads": [
+                    {
+                        "lead_id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9"
+                    },
+                    {
+                        "first_name": "Morgan",
+                        "last_name": "Lee",
+                        "domain": "salesforce.com"
+                    }
+                ]
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -5589,6 +6108,25 @@ paths:
                       description: LinkedIn profile URL.
                       example: https://www.linkedin.com/in/jordan-ellis
                 - $ref: '#/components/schemas/PhoneFindByNameRequest'
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/phone/find/"
+
+            payload = {
+                "lead_id": "ACwAAAE9bk0BxY7Qf2mN4pR8sT1vW3zA5cE6gH9"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error or insufficient balance.
@@ -5827,6 +6365,29 @@ paths:
                   type: string
                   description: Secret for HMAC signature verification of incoming webhook payloads.
                   example: your-secret-for-signature
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/webhooks/"
+
+            payload = {
+                "url": "https://your-app.com/webhook",
+                "events": [
+                    "email.find.bulk.completed"
+                ],
+                "secret": "your-secret-for-signature"
+            }
+
+            headers = {
+                "Authorization": "Token <api-key>",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+            print(response.json())
       responses:
         '400':
           description: Validation error.
@@ -6007,6 +6568,20 @@ paths:
           schema:
             type: string
           example: wh_123
+      x-codeSamples:
+        - lang: python
+          label: Python
+          source: |
+            import requests
+
+            url = "https://api.generect.com/api/v1/webhooks/wh_123/test/"
+
+            headers = {
+                "Authorization": "Token <api-key>"
+            }
+
+            response = requests.post(url, headers=headers)
+            print(response.json())
       responses:
         '401':
           $ref: '#/components/responses/Unauthorized'
