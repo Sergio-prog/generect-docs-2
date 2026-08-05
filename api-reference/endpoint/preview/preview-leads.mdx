@@ -6,5 +6,6 @@ openapi: post /preview/leads/
 ## Use Case:
 Show masked lead results in SaaS products without exposing paid data such as email, phone, LinkedIn URL, or company domain.
 
-## Pricing
-This endpoint is free — it does not incur any charges.
+<Note>
+**Free above \$2,000 a month:** once your spend within the current calendar month reaches \$2,000, this endpoint costs nothing for the rest of that month. On the 1st the counter restarts and requests are billable again — check the current state with the `preview_tier` flag on [`GET /accounts/me/`](/api-reference/endpoint/accounts/get-account-me).
+</Note>
